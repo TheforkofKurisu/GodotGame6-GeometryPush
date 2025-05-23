@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwo8irm51lb7s"]
+
+[ext_resource type="Script" uid="uid://ddgepbmr6sitx" path="res://Scenes/UI/GUI/buffs.gd" id="1_e0wy1"]
+[ext_resource type="FontFile" uid="uid://dnqjwb6onu3r5" path="res://Assets/fonts/Kenney Pixel Square.ttf" id="2_noowg"]
+[ext_resource type="PackedScene" uid="uid://ccqvcs0pdqiqi" path="res://Scenes/UI/GUI/buff.tscn" id="3_dr8fq"]
+[ext_resource type="FontFile" uid="uid://b2ebbbqmn8vt2" path="res://Assets/fonts/fusion-pixel-10px-monospaced-zh_hans.otf" id="4_imb40"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dr8fq"]
+font = ExtResource("2_noowg")
+font_size = 45
+shadow_size = 2
+shadow_color = Color(0.929412, 0.917647, 0.909804, 1)
+
+[node name="Buffs" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e0wy1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.239216, 0.239216, 0.239216, 0.0784314)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 175
+
+[node name="blank" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "level up!"
+label_settings = SubResource("LabelSettings_dr8fq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 25
+
+[node name="Buff" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_dr8fq")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Buff2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_dr8fq")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Buff3" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_dr8fq")]
+layout_mode = 2
+
+[node name="Reroll" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("4_imb40")
+theme_override_font_sizes/font_size = 60
+text = "刷新"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Reroll" to="." method="_on_reroll_pressed"]

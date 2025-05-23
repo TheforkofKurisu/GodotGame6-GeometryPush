@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="BuffBase" load_steps=3 format=3 uid="uid://xh0fpc0yb13f"]
+
+[ext_resource type="Texture2D" uid="uid://bd6ni0hvlu255" path="res://icon.svg" id="1_2tvlq"]
+[ext_resource type="Script" uid="uid://ccvqnvvhekfvw" path="res://Resource/BuffBase.gd" id="1_ncaml"]
+
+[resource]
+script = ExtResource("1_ncaml")
+buff_id = "ball_add_knock_back"
+display_name = "基础增益"
+icon = ExtResource("1_2tvlq")
+description = "提升击退效果
+5层：额外获得一个小球"
+target_types = Array[String](["ball"])
+target_attribute = "knock_back_distance"
+base_value = 50.0
+multiplier = 1.0
+is_percentage = false
+duration = -1.0
+tick_interval = 1.0
+max_stacks = 1
+refresh_duration = true
+priority = 0
+trigger_events = Array[int]([0])
+required_buffs = Array[ExtResource("1_ncaml")]([])
+max_level = 1
+metadata/_custom_type_script = "uid://ccvqnvvhekfvw"

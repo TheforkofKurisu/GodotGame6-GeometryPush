@@ -1,0 +1,176 @@
+[gd_scene load_steps=15 format=3 uid="uid://c36q3qfljafyk"]
+
+[ext_resource type="Script" uid="uid://bgnch0ldlvlsh" path="res://Scenes/objects/Boss/boss_1.gd" id="1_a8gab"]
+[ext_resource type="Texture2D" uid="uid://ol1t15vuvv7t" path="res://Assets/PNGs/monsters/monster_4/1.png" id="2_ifgno"]
+[ext_resource type="Script" uid="uid://cwcs7duyh1kcg" path="res://States/state_machine.gd" id="3_ifgno"]
+[ext_resource type="Script" uid="uid://bjouo6yrn3238" path="res://States/Boss_1/Boss_1_idle.gd" id="4_tsnx6"]
+[ext_resource type="Script" uid="uid://creyfjlr8y8t3" path="res://States/Boss_1/Boss_1_enter.gd" id="5_068qr"]
+[ext_resource type="Script" uid="uid://btodtww6f3spb" path="res://States/Boss_1/Boss_1_attack_1.gd" id="6_1hino"]
+[ext_resource type="Script" uid="uid://dx8w5yngybinj" path="res://States/Boss_1/Boss_1_attack_2.gd" id="7_1hino"]
+[ext_resource type="Texture2D" uid="uid://mf4bj1fywvrs" path="res://Assets/PNGs/Particles/boss.png" id="8_337ju"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tsnx6"]
+size = Vector2(252, 252)
+
+[sub_resource type="Animation" id="Animation_337ju"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.329412, 0.396078, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.15, 0.15)]
+}
+
+[sub_resource type="Animation" id="Animation_1hino"]
+resource_name = "boss_hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.329412, 0.396078, 1, 1), Color(0.4, 0, 0, 1), Color(0.329412, 0.396078, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wi5ur"]
+resource_name = "boss_die"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.15, 0.15), Vector2(0.2, 0.2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wi5ur"]
+_data = {
+&"RESET": SubResource("Animation_337ju"),
+&"boss_die": SubResource("Animation_wi5ur"),
+&"boss_hurt": SubResource("Animation_1hino")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wi5ur"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 98, 0)
+scale_min = 4.0
+scale_max = 8.0
+
+[node name="Boss_1" type="RigidBody2D"]
+collision_layer = 32
+collision_mask = 2
+mass = 1000.0
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_a8gab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tsnx6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.329412, 0.396078, 1, 1)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_ifgno")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wi5ur")
+}
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 126)
+gizmo_extents = 78.0
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="Timers"]
+wait_time = 8.0
+one_shot = true
+
+[node name="ShootCDTimer" type="Timer" parent="Timers"]
+wait_time = 0.5
+
+[node name="MoveTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+
+[node name="IdleTimer" type="Timer" parent="Timers"]
+wait_time = 5.0
+one_shot = true
+
+[node name="RockAttackCDTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+
+[node name="RockAttackTimer" type="Timer" parent="Timers"]
+wait_time = 8.0
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_ifgno")
+initial_state = NodePath("enter")
+
+[node name="idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_tsnx6")
+
+[node name="enter" type="Node" parent="StateMachine"]
+script = ExtResource("5_068qr")
+
+[node name="attack_1" type="Node" parent="StateMachine"]
+script = ExtResource("6_1hino")
+
+[node name="attack_2" type="Node" parent="StateMachine"]
+script = ExtResource("7_1hino")
+
+[node name="JumpingLabels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 150
+texture = ExtResource("8_337ju")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wi5ur")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timers/ShootTimer" to="StateMachine/attack_1" method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="Timers/ShootCDTimer" to="StateMachine/attack_1" method="_on_shoot_cd_timer_timeout"]
+[connection signal="timeout" from="Timers/MoveTimer" to="StateMachine/attack_1" method="_on_move_timer_timeout"]
+[connection signal="timeout" from="Timers/IdleTimer" to="StateMachine/idle" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="Timers/RockAttackCDTimer" to="StateMachine/attack_2" method="_on_rock_attack_cd_timer_timeout"]
+[connection signal="timeout" from="Timers/RockAttackTimer" to="StateMachine/attack_2" method="_on_rock_attack_timer_timeout"]

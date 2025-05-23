@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://541tayqf8jqd"]
+
+[ext_resource type="Script" uid="uid://drv8ulw27l1ts" path="res://Scenes/stop_menu/stop_menu.gd" id="1_wd0k4"]
+[ext_resource type="Shader" uid="uid://cdepd5lwfhxt7" path="res://Assets/Shaders/fade.gdshader" id="2_3jvi7"]
+[ext_resource type="FontFile" uid="uid://b2ebbbqmn8vt2" path="res://Assets/fonts/fusion-pixel-10px-monospaced-zh_hans.otf" id="2_wd0k4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3rjc"]
+shader = ExtResource("2_3jvi7")
+shader_parameter/center_color = Color(0.0156863, 0.0823529, 0.121569, 1)
+shader_parameter/fade_range = 1.8
+shader_parameter/fade_power = 5.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_wd0k4"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_3jvi7"]
+events = [SubResource("InputEventKey_wd0k4")]
+
+[node name="StopMenu" type="Control"]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wd0k4")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_x3rjc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -120.0
+offset_right = 80.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+z_index = 4
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_wd0k4")
+theme_override_font_sizes/font_size = 30
+shortcut = SubResource("Shortcut_3jvi7")
+text = "返回游戏"
+
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_wd0k4")
+theme_override_font_sizes/font_size = 30
+text = "返回主菜单"
+
+[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_wd0k4")
+theme_override_font_sizes/font_size = 30
+text = "离开"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button4" to="." method="_on_button_4_pressed"]

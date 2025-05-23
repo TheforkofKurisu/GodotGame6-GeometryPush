@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=3 uid="uid://f0h7ui6vx2v4"]
+
+[ext_resource type="Script" uid="uid://cglvhhunxilvk" path="res://Scenes/objects/monster_base/monster_base.gd" id="1_6argn"]
+[ext_resource type="Texture2D" uid="uid://bd6ni0hvlu255" path="res://icon.svg" id="2_pve5d"]
+[ext_resource type="PackedScene" uid="uid://5enpswr2xet4" path="res://Scenes/objects/monster_buff_system/monster_buff_system.tscn" id="3_jl04i"]
+
+[sub_resource type="Animation" id="Animation_pve5d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.04, 0.04)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jl04i"]
+resource_name = "monster_die"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.04, 0.04), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mlk40"]
+resource_name = "monster_hurt"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.4, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5xngn"]
+resource_name = "on_damage"
+length = 0.6
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5xngn"]
+_data = {
+&"RESET": SubResource("Animation_pve5d"),
+&"monster_die": SubResource("Animation_jl04i"),
+&"monster_hurt": SubResource("Animation_mlk40"),
+&"on_damage": SubResource("Animation_5xngn")
+}
+
+[node name="MonsterBase" type="RigidBody2D" groups=["monster"]]
+collision_layer = 8
+collision_mask = 2
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_6argn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("2_pve5d")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5xngn")
+}
+
+[node name="JumpingLabels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Attribute" parent="." instance=ExtResource("3_jl04i")]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

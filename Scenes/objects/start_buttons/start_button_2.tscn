@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://k0gfajk8f2qr"]
+
+[ext_resource type="PackedScene" uid="uid://dwyfwt6dw136f" path="res://Scenes/objects/start_button_base/start_button_base.tscn" id="1_qsnht"]
+
+[node name="StartButton2" instance=ExtResource("1_qsnht")]
+
+[node name="Label" parent="." index="3"]
+text = "离开"

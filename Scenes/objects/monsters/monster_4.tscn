@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c54amuf8j02ud"]
+
+[ext_resource type="PackedScene" uid="uid://f0h7ui6vx2v4" path="res://Scenes/objects/monster_base/monster_base.tscn" id="1_x4dac"]
+[ext_resource type="Texture2D" uid="uid://ol1t15vuvv7t" path="res://Assets/PNGs/monsters/monster_4/1.png" id="2_ky0e3"]
+[ext_resource type="Script" uid="uid://bo3w5n85gmvy1" path="res://Scenes/objects/monsters/monster_4.gd" id="2_skbbl"]
+[ext_resource type="Material" uid="uid://dwk0q6mbv6odg" path="res://Scenes/objects/monster_base/monster_die.tres" id="3_fau4s"]
+
+[node name="Monster4" instance=ExtResource("1_x4dac")]
+script = ExtResource("2_skbbl")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_ky0e3")
+
+[node name="CollisionPolygon2D" parent="Area2D" index="0"]
+polygon = PackedVector2Array(-34, -34, 34, -34, 34, 34, -34, 34)
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="2"]
+position = Vector2(1.16229e-06, 0)
+scale = Vector2(3.3, 3.3)
+
+[node name="GPUParticles2D" parent="." index="3"]
+emitting = false
+amount = 50
+one_shot = true
+speed_scale = 1.2
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("3_fau4s")

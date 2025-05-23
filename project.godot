@@ -1,0 +1,72 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GeometryPush2"
+run/main_scene="uid://bxdkwpa28fb44"
+config/features=PackedStringArray("4.4", "Mobile")
+config/icon="uid://ny0r8im2edfh"
+
+[audio]
+
+buses/default_bus_layout="res://Assets/MusicBus/default_bus_layout.tres"
+
+[autoload]
+
+SignalManager="*res://Singletons/SignalManager.gd"
+GameManager="*res://Singletons/GameManager.gd"
+SceneManager="*res://Singletons/SceneManager.tscn"
+BuffManager="*res://Singletons/BuffManager.gd"
+AudioManager="*res://Singletons/AudioManager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "red",
+"res://Resource/": "purple",
+"res://Scenes/": "yellow",
+"res://Singletons/": "green",
+"res://States/": "pink"
+}
+
+[global_group]
+
+ball=""
+monster=""
+pat=""
+
+[layer_names]
+
+2d_physics/layer_1="pat"
+2d_physics/layer_2="ball"
+2d_physics/layer_3="wall"
+2d_physics/layer_4="monster"
+2d_physics/layer_5="rock"
+2d_physics/layer_6="boss"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+viewport/hdr_2d=true

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://daaw16b7o2fvx"]
+
+[ext_resource type="Texture2D" uid="uid://ny0r8im2edfh" path="res://Assets/PNGs/ball/6.png" id="1_eofo1"]
+[ext_resource type="Script" uid="uid://mfi61ilavlsc" path="res://Scenes/objects/pat/pat.gd" id="1_jchpj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jchpj"]
+radius = 42.0119
+
+[node name="Pat" type="RigidBody2D" groups=["pat"]]
+collision_mask = 6
+gravity_scale = 0.0
+script = ExtResource("1_jchpj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_eofo1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jchpj")

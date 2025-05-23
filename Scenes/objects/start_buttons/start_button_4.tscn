@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpyotpo14em6p"]
+
+[ext_resource type="PackedScene" uid="uid://dwyfwt6dw136f" path="res://Scenes/objects/start_button_base/start_button_base.tscn" id="1_6h2qe"]
+
+[node name="StartButton4" instance=ExtResource("1_6h2qe")]
+
+[node name="Label" parent="." index="3"]
+text = "sbjyr"

@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://jjtko0sg1vrb"]
+
+[ext_resource type="Script" uid="uid://brr2u66sx4ywh" path="res://Singletons/SceneManager.gd" id="1_m4iqe"]
+[ext_resource type="Shader" uid="uid://dnnw6edekbrs6" path="res://Assets/Shaders/SceneManager.gdshader" id="2_b4mtc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b4mtc"]
+shader = ExtResource("2_b4mtc")
+shader_parameter/effect_color = Color(0.760784, 0.909804, 0.0705882, 1)
+shader_parameter/progress = 0.0
+shader_parameter/center_absolute = Vector2(360, 640)
+shader_parameter/scale_factor = 1.5
+
+[sub_resource type="Animation" id="Animation_117ty"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_b4mtc"]
+resource_name = "transition"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.66, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_117ty"]
+_data = {
+&"RESET": SubResource("Animation_117ty"),
+&"transition": SubResource("Animation_b4mtc")
+}
+
+[node name="SceneManager" type="CanvasLayer"]
+layer = -1
+script = ExtResource("1_m4iqe")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_b4mtc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_117ty")
+}

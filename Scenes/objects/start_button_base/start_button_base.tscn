@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwyfwt6dw136f"]
+
+[ext_resource type="Script" uid="uid://baxcq5ru1stcv" path="res://Scenes/objects/start_button_base/start_button_base.gd" id="1_5pby1"]
+[ext_resource type="Texture2D" uid="uid://65m747b0roaj" path="res://Assets/PNGs/button/1.png" id="2_uf4aw"]
+[ext_resource type="FontFile" uid="uid://b2ebbbqmn8vt2" path="res://Assets/fonts/fusion-pixel-10px-monospaced-zh_hans.otf" id="3_uf4aw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcdcg"]
+size = Vector2(28, 17.3333)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h263a"]
+font = ExtResource("3_uf4aw")
+font_size = 50
+font_color = Color(0.0156863, 0.0823529, 0.121569, 1)
+outline_size = 1
+outline_color = Color(0.0214346, 0.0214346, 0.0214346, 1)
+
+[node name="StartButtonBase" type="RigidBody2D"]
+collision_layer = 16
+collision_mask = 2
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_5pby1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_uf4aw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.86102e-06)
+scale = Vector2(6, 6)
+shape = SubResource("RectangleShape2D_xcdcg")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "text"
+label_settings = SubResource("LabelSettings_h263a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

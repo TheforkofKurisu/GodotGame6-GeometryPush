@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://crbo8wieuokoe"]
+
+[ext_resource type="Script" uid="uid://dpbmgpp2oe2f3" path="res://Scenes/objects/wall/wall.gd" id="1_nlq06"]
+[ext_resource type="Material" uid="uid://wc1c13u8wj0r" path="res://Scenes/objects/wall/wall.tres" id="2_oi6eb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ec15b"]
+size = Vector2(20, 1292)
+
+[node name="wall" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 27
+collision_priority = 10.0
+script = ExtResource("1_nlq06")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ec15b")
+one_way_collision_margin = 10.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ec15b")
+one_way_collision_margin = 10.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Area2D"]
+emitting = false
+amount = 40
+lifetime = 0.8
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("2_oi6eb")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

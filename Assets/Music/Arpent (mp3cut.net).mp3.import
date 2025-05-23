@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b418cc3srfjga"
+path="res://.godot/imported/Arpent (mp3cut.net).mp3-21d1e1bec807289bb8daac86f3669a44.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Arpent (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/Arpent (mp3cut.net).mp3-21d1e1bec807289bb8daac86f3669a44.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

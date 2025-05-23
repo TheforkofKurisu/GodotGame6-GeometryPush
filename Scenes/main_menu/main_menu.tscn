@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://bxdkwpa28fb44"]
+
+[ext_resource type="Shader" uid="uid://cdepd5lwfhxt7" path="res://Assets/Shaders/fade.gdshader" id="1_84ntq"]
+[ext_resource type="Script" uid="uid://de24s05lvc6qb" path="res://Scenes/main_menu/main_menu.gd" id="1_n2kgy"]
+[ext_resource type="Environment" uid="uid://dr8612ronjhgl" path="res://Scenes/main/main.tres" id="2_p16ft"]
+[ext_resource type="PackedScene" uid="uid://dvcsveiflpkte" path="res://Scenes/objects/start_buttons/start_button_1.tscn" id="3_kjrrv"]
+[ext_resource type="PackedScene" uid="uid://k0gfajk8f2qr" path="res://Scenes/objects/start_buttons/start_button_2.tscn" id="4_n2kgy"]
+[ext_resource type="PackedScene" uid="uid://b0ywiiole6xwi" path="res://Scenes/objects/ball/ball.tscn" id="5_24s6s"]
+[ext_resource type="PackedScene" uid="uid://bva6qyei7t740" path="res://Scenes/shake_camera/shake_camera.tscn" id="5_iqv4h"]
+[ext_resource type="PackedScene" uid="uid://daaw16b7o2fvx" path="res://Scenes/objects/pat/pat.tscn" id="6_kn0ll"]
+[ext_resource type="PackedScene" uid="uid://d10hfg6t84olv" path="res://Scenes/objects/start_buttons/start_button_3.tscn" id="7_k3jx5"]
+[ext_resource type="PackedScene" uid="uid://crbo8wieuokoe" path="res://Scenes/objects/wall/wall.tscn" id="7_kn0ll"]
+[ext_resource type="PackedScene" uid="uid://su87mfksqssu" path="res://Scenes/UI/main_menu_ui/main_menu_ui.tscn" id="8_24s6s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p16ft"]
+shader = ExtResource("1_84ntq")
+shader_parameter/center_color = Color(0.0156863, 0.0823529, 0.121569, 1)
+shader_parameter/fade_range = 1.8
+shader_parameter/fade_power = 5.0
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_n2kgy")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+material = SubResource("ShaderMaterial_p16ft")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_p16ft")
+
+[node name="MainMenuUI" parent="." instance=ExtResource("8_24s6s")]
+offset_left = 360.0
+offset_top = 500.0
+offset_right = 360.0
+offset_bottom = 500.0
+
+[node name="ShakeCamera" parent="." instance=ExtResource("5_iqv4h")]
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="StartButton1" parent="Buttons" instance=ExtResource("3_kjrrv")]
+position = Vector2(636, 52)
+
+[node name="StartButton2" parent="Buttons" instance=ExtResource("4_n2kgy")]
+position = Vector2(357, 1225)
+
+[node name="StartButton3" parent="Buttons" instance=ExtResource("7_k3jx5")]
+position = Vector2(86, 53)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="wall" parent="Walls" instance=ExtResource("7_kn0ll")]
+position = Vector2(-10, 640)
+
+[node name="wall2" parent="Walls" instance=ExtResource("7_kn0ll")]
+position = Vector2(360, -10)
+rotation = 1.5708
+
+[node name="wall3" parent="Walls" instance=ExtResource("7_kn0ll")]
+position = Vector2(730, 640)
+
+[node name="wall4" parent="Walls" instance=ExtResource("7_kn0ll")]
+position = Vector2(360, 1290)
+rotation = 1.5708
+
+[node name="Pat" parent="." instance=ExtResource("6_kn0ll")]
+position = Vector2(372, 867)
+
+[node name="Ball" parent="." instance=ExtResource("5_24s6s")]
+position = Vector2(271, 454)

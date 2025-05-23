@@ -1,0 +1,125 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvvsk1c2sneo0"]
+
+[ext_resource type="Script" uid="uid://b85s8lr7rlusn" path="res://Scenes/options/options.gd" id="1_qnun1"]
+[ext_resource type="Shader" uid="uid://cdepd5lwfhxt7" path="res://Assets/Shaders/fade.gdshader" id="2_qcfwl"]
+[ext_resource type="FontFile" uid="uid://b2ebbbqmn8vt2" path="res://Assets/fonts/fusion-pixel-10px-monospaced-zh_hans.otf" id="3_0d3l7"]
+[ext_resource type="Texture2D" uid="uid://bhubiwbwsp3y5" path="res://Assets/PNGs/UI/h_slider/1.png" id="4_0d3l7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x0y6i"]
+shader = ExtResource("2_qcfwl")
+shader_parameter/center_color = Color(0.0156863, 0.0823529, 0.121569, 1)
+shader_parameter/fade_range = 1.8
+shader_parameter/fade_power = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_1tudv"]
+font = ExtResource("3_0d3l7")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_wji3u"]
+font = ExtResource("3_0d3l7")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_ws5gx"]
+font = ExtResource("3_0d3l7")
+font_size = 30
+
+[node name="Options" type="Node"]
+script = ExtResource("1_qnun1")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+material = SubResource("ShaderMaterial_x0y6i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+text = "设置"
+label_settings = SubResource("LabelSettings_1tudv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Blank" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Blank" type="Control" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "音乐音量"
+label_settings = SubResource("LabelSettings_wji3u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("4_0d3l7")
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Blank" type="Control" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "音效音量"
+label_settings = SubResource("LabelSettings_ws5gx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("4_0d3l7")
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Blank2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_0d3l7")
+theme_override_font_sizes/font_size = 50
+text = "返回"
+
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer/HBoxContainer2/HSlider" to="." method="_on_SFX_slider_value_changed"]
+[connection signal="button_down" from="VBoxContainer/ExitButton" to="." method="_on_button_button_down"]

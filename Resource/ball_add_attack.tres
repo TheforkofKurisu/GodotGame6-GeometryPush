@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BuffBase" load_steps=3 format=3 uid="uid://c3ogbt18qvmxs"]
+
+[ext_resource type="Texture2D" uid="uid://bd6ni0hvlu255" path="res://icon.svg" id="1_gvki7"]
+[ext_resource type="Script" uid="uid://ccvqnvvhekfvw" path="res://Resource/BuffBase.gd" id="2_3c466"]
+
+[resource]
+script = ExtResource("2_3c466")
+buff_id = "ball_add_attack"
+display_name = "基础增益"
+icon = ExtResource("1_gvki7")
+description = "提升5点攻击力"
+target_types = Array[String](["ball"])
+target_attribute = "attack"
+base_value = 5.0
+multiplier = 1.0
+is_percentage = false
+duration = -1.0
+tick_interval = 1.0
+max_stacks = 5
+refresh_duration = true
+priority = 0
+trigger_events = Array[int]([])
+required_buffs = Array[ExtResource("2_3c466")]([])
+max_level = 1
+metadata/_custom_type_script = "uid://ccvqnvvhekfvw"

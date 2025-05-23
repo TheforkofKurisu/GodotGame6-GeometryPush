@@ -1,0 +1,160 @@
+[gd_scene load_steps=19 format=3 uid="uid://ci68auu0bgfix"]
+
+[ext_resource type="FontFile" uid="uid://dnqjwb6onu3r5" path="res://Assets/fonts/Kenney Pixel Square.ttf" id="1_bfwrq"]
+[ext_resource type="Script" uid="uid://ikrisqia8ffn" path="res://Scenes/UI/GUI/gui.gd" id="1_eb8o6"]
+[ext_resource type="Script" uid="uid://bo1ij1e2vltpb" path="res://Scenes/UI/GUI/exp.gd" id="2_hvhtw"]
+[ext_resource type="Texture2D" uid="uid://srwumk8qknug" path="res://Assets/PNGs/UI/exp/under_3.png" id="4_8jk63"]
+[ext_resource type="Texture2D" uid="uid://bgqvk78plh3md" path="res://Assets/PNGs/UI/exp/up.png" id="5_6tyvt"]
+[ext_resource type="Script" uid="uid://hgu7nlod5uuf" path="res://Scenes/UI/GUI/hp.gd" id="6_1f2nu"]
+[ext_resource type="Script" uid="uid://dhnuq7tvj3c3b" path="res://Scenes/UI/GUI/esc.gd" id="6_r25y3"]
+[ext_resource type="Texture2D" uid="uid://ulxqiacscnad" path="res://Assets/PNGs/UI/HP/under_3.png" id="7_1f2nu"]
+[ext_resource type="Texture2D" uid="uid://3f7tat348j05" path="res://Assets/PNGs/UI/HP/up_2.png" id="8_awtsw"]
+[ext_resource type="Script" uid="uid://permdmixd30i" path="res://Scenes/UI/GUI/time.gd" id="9_awtsw"]
+[ext_resource type="Texture2D" uid="uid://cv6bed4qm80ib" path="res://Assets/PNGs/button/flatDark32.png" id="11_nc4hh"]
+[ext_resource type="Texture2D" uid="uid://dqb40838mqym" path="res://Assets/PNGs/button/flatDark32_down.png" id="12_8kajr"]
+[ext_resource type="PackedScene" uid="uid://dwo8irm51lb7s" path="res://Scenes/UI/GUI/buffs.tscn" id="12_mowhp"]
+[ext_resource type="PackedScene" uid="uid://cgligfayncmpm" path="res://Scenes/UI/GUI/combo.tscn" id="13_ukvie"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eb8o6"]
+font = ExtResource("1_bfwrq")
+font_size = 60
+shadow_color = Color(0.929412, 0.917647, 0.909804, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mowhp"]
+font = ExtResource("1_bfwrq")
+font_size = 40
+shadow_color = Color(0.929412, 0.917647, 0.909804, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="InputEventKey" id="InputEventKey_r25y3"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_gyf4q"]
+events = [SubResource("InputEventKey_r25y3")]
+
+[node name="GUI" type="Control"]
+z_index = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_eb8o6")
+
+[node name="Exp" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("2_hvhtw")
+
+[node name="Label" type="Label" parent="Exp"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 60.0
+offset_right = 50.0
+offset_bottom = 150.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_eb8o6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Exp"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -365.0
+offset_top = -5.0
+offset_right = 365.0
+offset_bottom = 35.0
+grow_horizontal = 2
+max_value = 175.0
+texture_under = ExtResource("4_8jk63")
+texture_progress = ExtResource("5_6tyvt")
+
+[node name="Hp" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("6_1f2nu")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Hp"]
+layout_mode = 1
+offset_left = -5.0
+offset_right = 245.0
+offset_bottom = 50.0
+scale = Vector2(0.989746, 0.995428)
+value = 50.0
+texture_under = ExtResource("7_1f2nu")
+texture_progress = ExtResource("8_awtsw")
+
+[node name="Time" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("9_awtsw")
+
+[node name="Timer" type="Timer" parent="Time"]
+autostart = true
+
+[node name="Label" type="Label" parent="Time"]
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 0
+offset_top = 30.0
+offset_right = 150.0
+offset_bottom = 90.0
+text = "00:00"
+label_settings = SubResource("LabelSettings_mowhp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Esc" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("6_r25y3")
+
+[node name="TextureButton" type="TextureButton" parent="Esc"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = -8.0
+offset_top = 11.0
+offset_right = 42.0
+offset_bottom = 61.0
+shortcut = SubResource("Shortcut_gyf4q")
+texture_normal = ExtResource("11_nc4hh")
+texture_hover = ExtResource("12_8kajr")
+
+[node name="Buffs" parent="." instance=ExtResource("12_mowhp")]
+visible = false
+layout_mode = 1
+
+[node name="Combo" parent="." instance=ExtResource("13_ukvie")]
+layout_mode = 1
+offset_top = 250.0
+offset_bottom = 250.0
+
+[connection signal="timeout" from="Time/Timer" to="Time" method="_on_timer_timeout"]
+[connection signal="pressed" from="Esc/TextureButton" to="Esc" method="_on_texture_button_pressed"]

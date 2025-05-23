@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0ywiiole6xwi"]
+
+[ext_resource type="Script" uid="uid://bsb6lknjcklhk" path="res://Scenes/objects/ball/ball.gd" id="1_hrmtc"]
+[ext_resource type="Texture2D" uid="uid://ny0r8im2edfh" path="res://Assets/PNGs/ball/6.png" id="1_l6t74"]
+[ext_resource type="Curve" uid="uid://x5e0d81c2503" path="res://Scenes/objects/ball/ball.tres" id="3_1oxte"]
+[ext_resource type="Script" uid="uid://bncjproovxdgq" path="res://Scenes/objects/ball/follow_line.gd" id="4_dfv8f"]
+[ext_resource type="PackedScene" uid="uid://g5tl0faead77" path="res://Scenes/objects/ball_buff_system/ball_buff_system.tscn" id="5_dfv8f"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l6t74"]
+bounce = 0.9
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrmtc"]
+radius = 26.0192
+
+[node name="Ball" type="RigidBody2D" groups=["ball"]]
+collision_layer = 2
+collision_mask = 63
+physics_material_override = SubResource("PhysicsMaterial_l6t74")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_hrmtc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("1_l6t74")
+
+[node name="Line2D" type="Line2D" parent="Sprite2D"]
+top_level = true
+width = 20.0
+width_curve = ExtResource("3_1oxte")
+default_color = Color(0.757, 0.91, 0.073, 1)
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("4_dfv8f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hrmtc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(4.76837e-07, 4.76837e-07)
+scale = Vector2(1.7, 1.8)
+
+[node name="Attribute" parent="." instance=ExtResource("5_dfv8f")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

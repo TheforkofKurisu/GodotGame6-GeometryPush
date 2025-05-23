@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://5enpswr2xet4"]
+
+[ext_resource type="PackedScene" uid="uid://cc3br0c8r7w20" path="res://Scenes/objects/buff_system/buff_system.tscn" id="1_tcxy3"]
+[ext_resource type="Script" uid="uid://bnspyl6m6nu7i" path="res://Scenes/objects/monster_buff_system/monster_buff_system.gd" id="2_tgtxc"]
+
+[node name="MonsterBuffSystem" instance=ExtResource("1_tcxy3")]
+script = ExtResource("2_tgtxc")

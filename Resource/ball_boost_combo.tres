@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="BuffBase" load_steps=2 format=3 uid="uid://bp2ivhj735t3t"]
+
+[ext_resource type="Script" uid="uid://ccvqnvvhekfvw" path="res://Resource/BuffBase.gd" id="1_sy444"]
+
+[resource]
+script = ExtResource("1_sy444")
+buff_id = "ball_boost_combo"
+display_name = "基础增益"
+description = "增加1点连击提升的伤害
+5层：小球死亡时只损失一半的连击层数"
+target_types = Array[String](["player"])
+target_attribute = "attack"
+base_value = 0.0
+multiplier = 1.0
+is_percentage = false
+duration = -1.0
+tick_interval = 1.0
+max_stacks = 1
+refresh_duration = true
+priority = 0
+trigger_events = Array[int]([0])
+required_buffs = Array[ExtResource("1_sy444")]([])
+max_level = 1
+metadata/_custom_type_script = "uid://ccvqnvvhekfvw"

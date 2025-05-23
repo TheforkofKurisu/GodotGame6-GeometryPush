@@ -1,0 +1,93 @@
+[gd_scene load_steps=17 format=3 uid="uid://d3fghcgt02n8u"]
+
+[ext_resource type="PackedScene" uid="uid://ci68auu0bgfix" path="res://Scenes/UI/GUI/gui.tscn" id="1_8lqer"]
+[ext_resource type="PackedScene" uid="uid://crbo8wieuokoe" path="res://Scenes/objects/wall/wall.tscn" id="1_b20jg"]
+[ext_resource type="Shader" uid="uid://cdepd5lwfhxt7" path="res://Assets/Shaders/fade.gdshader" id="1_brlrh"]
+[ext_resource type="PackedScene" uid="uid://dcwhoblddxd78" path="res://Scenes/game_over/game_over.tscn" id="1_dikqp"]
+[ext_resource type="PackedScene" uid="uid://541tayqf8jqd" path="res://Scenes/stop_menu/stop_menu.tscn" id="1_io28c"]
+[ext_resource type="PackedScene" uid="uid://bva6qyei7t740" path="res://Scenes/shake_camera/shake_camera.tscn" id="3_b3x3g"]
+[ext_resource type="Script" uid="uid://dqxjqyaq75ino" path="res://Scenes/main/main.gd" id="3_io28c"]
+[ext_resource type="PackedScene" uid="uid://daaw16b7o2fvx" path="res://Scenes/objects/pat/pat.tscn" id="3_wcurd"]
+[ext_resource type="PackedScene" uid="uid://bwrr6gyhcmjym" path="res://Scenes/Managers/ball_creater/ball_creater.tscn" id="4_4jhlv"]
+[ext_resource type="PackedScene" uid="uid://b7utmre8g18nv" path="res://Scenes/Managers/monster_creater/monster_creater.tscn" id="4_hgq70"]
+[ext_resource type="Environment" uid="uid://dr8612ronjhgl" path="res://Scenes/main/main.tres" id="4_wcurd"]
+[ext_resource type="PackedScene" uid="uid://dtueny53v67hc" path="res://Scenes/Managers/rock_creater/rock_creater.tscn" id="6_ra8v3"]
+[ext_resource type="PackedScene" uid="uid://c1255blckdsvd" path="res://Scenes/Managers/exp_manager/exp_manager.tscn" id="9_7y5iv"]
+[ext_resource type="PackedScene" uid="uid://cko5vtn78bd5q" path="res://Scenes/Managers/state_manager/state_manager.tscn" id="11_moneo"]
+[ext_resource type="PackedScene" uid="uid://8668tvw3c46y" path="res://Scenes/Managers/boss_creater/boss_creater.tscn" id="12_1xtop"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jhlv"]
+shader = ExtResource("1_brlrh")
+shader_parameter/center_color = Color(0.0156863, 0.0823529, 0.121569, 1)
+shader_parameter/fade_range = 1.8
+shader_parameter/fade_power = 5.0
+
+[node name="Root" type="Node"]
+
+[node name="GameOver" parent="." instance=ExtResource("1_dikqp")]
+
+[node name="StopMenu" parent="." instance=ExtResource("1_io28c")]
+z_index = 10
+
+[node name="GUI" parent="." instance=ExtResource("1_8lqer")]
+z_index = 5
+
+[node name="Main" type="Node2D" parent="."]
+z_index = -1
+script = ExtResource("3_io28c")
+
+[node name="Background" type="CanvasLayer" parent="Main"]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="Main/Background"]
+material = SubResource("ShaderMaterial_4jhlv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Main"]
+environment = ExtResource("4_wcurd")
+
+[node name="ShakeCamera" parent="Main" instance=ExtResource("3_b3x3g")]
+
+[node name="MonsterCreater" parent="Main" instance=ExtResource("4_hgq70")]
+
+[node name="RockCreater" parent="Main" instance=ExtResource("6_ra8v3")]
+
+[node name="BallCreater" parent="Main" instance=ExtResource("4_4jhlv")]
+
+[node name="ExpManager" parent="Main" instance=ExtResource("9_7y5iv")]
+
+[node name="StateManager" parent="Main" instance=ExtResource("11_moneo")]
+
+[node name="BossCreater" parent="Main" instance=ExtResource("12_1xtop")]
+
+[node name="Timers" type="Node2D" parent="Main"]
+
+[node name="MonsterSpawnTimer" type="Timer" parent="Main/Timers"]
+autostart = true
+
+[node name="RockSpawnTimer" type="Timer" parent="Main/Timers"]
+wait_time = 10.0
+autostart = true
+
+[node name="Walls" type="Node2D" parent="Main"]
+
+[node name="wall" parent="Main/Walls" instance=ExtResource("1_b20jg")]
+position = Vector2(-10, 640)
+
+[node name="wall2" parent="Main/Walls" instance=ExtResource("1_b20jg")]
+position = Vector2(730, 640)
+
+[node name="wall3" parent="Main/Walls" instance=ExtResource("1_b20jg")]
+position = Vector2(360, -10)
+rotation = 1.5708
+
+[node name="Pat" parent="Main" instance=ExtResource("3_wcurd")]
+position = Vector2(356, 1045)
+
+[connection signal="timeout" from="Main/Timers/MonsterSpawnTimer" to="Main/MonsterCreater" method="_on_monster_spawn_timer_timeout"]
+[connection signal="timeout" from="Main/Timers/RockSpawnTimer" to="Main/RockCreater" method="_on_rock_spawn_timer_timeout"]

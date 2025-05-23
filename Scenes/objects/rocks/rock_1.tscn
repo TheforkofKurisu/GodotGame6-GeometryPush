@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2nonqvra50gj"]
+
+[ext_resource type="PackedScene" uid="uid://k0tt5o3cls2e" path="res://Scenes/objects/rock_base/rock_base.tscn" id="1_l1u2d"]
+
+[node name="Rock1" instance=ExtResource("1_l1u2d")]
+
+[node name="Polygon2D" parent="." index="0"]
+polygon = PackedVector2Array(-30, -26, -35, 24, 28, 45, 59, -8, 17, -36)
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(-30, -26, -35, 24, 28, 45, 59, -8, 17, -36)

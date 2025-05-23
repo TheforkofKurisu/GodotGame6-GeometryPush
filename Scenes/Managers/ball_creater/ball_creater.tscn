@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwrr6gyhcmjym"]
+
+[ext_resource type="Script" uid="uid://cnj6hssjhhwmr" path="res://Scenes/Managers/ball_creater/ball_creater.gd" id="1_w85e1"]
+
+[node name="BallCreater" type="Node2D"]
+script = ExtResource("1_w85e1")
+
+[node name="BallHolder" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
